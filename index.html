@@ -21,11 +21,17 @@
       "all-Category": ["https://www.youtube.com/watch?v=2HHEKJpSB-0&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=14"],
       "add-Sub-Category": ["https://www.youtube.com/watch?v=lb8tQZw28pk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=15"],
       "all-Sub-Category": ["https://www.youtube.com/watch?v=lb8tQZw28pk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=15"],
-      "news-article": ["https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17", "https://www.youtube.com/watch?v=sIBjpr0UchI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=18"],
-      "all-news-article": ["https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17", "https://www.youtube.com/watch?v=sIBjpr0UchI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=18"]
+      "news-article": [
+        "https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17",
+        "https://www.youtube.com/watch?v=sIBjpr0UchI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=18"
+      ],
+      "all-news-article": [
+        "https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17",
+        "https://www.youtube.com/watch?v=sIBjpr0UchI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=18"
+      ]
     };
 
-   window.onload = function () {
+    window.onload = function () {
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
       const videos = videoMap[id] || videoMap["default"];
@@ -34,7 +40,8 @@
         window.location.replace(videos[0]);
       } else {
         const container = document.getElementById("videoOptions");
-        document.getElementById("message").innerText = "Select a video to watch:";
+        const msg = document.getElementById("message");
+        msg.innerText = "Select a video to watch:";
         videos.forEach((url, index) => {
           const btn = document.createElement("button");
           btn.textContent = "Video " + (index + 1);
@@ -46,8 +53,8 @@
     };
   </script>
 </head>
-<body>
-  <p>Redirecting to video...</p>
-  <div id="videoOptions"></div><div id="videoOptions"></div>
+<body style="font-family: Arial, sans-serif; text-align: center; padding-top: 50px;">
+  <h2 id="message">Redirecting to video...</h2>
+  <div id="videoOptions"></div>
 </body>
 </html>
