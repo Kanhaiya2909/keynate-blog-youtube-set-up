@@ -5,38 +5,49 @@
   <title>Redirecting...</title>
   <script>
     const videoMap = {
-      "default": "https://www.youtube.com/playlist?list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l",
-      "folder": "https://www.youtube.com/watch?v=zC0dwYfPfzk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=2",
-      "verify": "https://www.youtube.com/watch?v=nI7sodMgQus&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=3",
-      "company": "https://www.youtube.com/watch?v=8jXbKU9VCbI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=4",
-      "add-tinymce": "https://www.youtube.com/watch?v=wCzg5UIImOQ&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=5",
-      "feed" : "https://www.youtube.com/watch?v=HGOUT-nWdkQ&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=6",
-      "author": "https://www.youtube.com/watch?v=MbzsVJWNKR4&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=7",
-      "social-media":"https://www.youtube.com/watch?v=2ckgBhhiaLY&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=8",
-      "instant-indexing": "https://www.youtube.com/watch?v=gyl4Yj3-lMU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=10",
-      "robots": "https://www.youtube.com/watch?v=48H8BDwmvUk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=11",
-      "about": "https://www.youtube.com/watch?v=TF1WGpebbio&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=12",
-      "push-notification": "https://www.youtube.com/watch?v=3W78kk1CnRU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=13",
-      "add-Category": "https://www.youtube.com/watch?v=2HHEKJpSB-0&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=14",
-      "all-Category": "https://www.youtube.com/watch?v=2HHEKJpSB-0&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=14",
-      "add-Sub-Category": "https://www.youtube.com/watch?v=lb8tQZw28pk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=15",
-      "all-Sub-Category": "https://www.youtube.com/watch?v=lb8tQZw28pk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=15",
-      "news-article":"https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17",
-      "all-news-article": "https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17"
+      "default": ["https://www.youtube.com/playlist?list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l"],
+      "folder": ["https://www.youtube.com/watch?v=zC0dwYfPfzk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=2"],
+      "verify": ["https://www.youtube.com/watch?v=nI7sodMgQus&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=3"],
+      "company": ["https://www.youtube.com/watch?v=8jXbKU9VCbI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=4"],
+      "add-tinymce": ["https://www.youtube.com/watch?v=wCzg5UIImOQ&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=5"],
+      "feed" : ["https://www.youtube.com/watch?v=HGOUT-nWdkQ&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=6"],
+      "author": ["https://www.youtube.com/watch?v=MbzsVJWNKR4&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=7"],
+      "social-media": ["https://www.youtube.com/watch?v=2ckgBhhiaLY&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=8"],
+      "instant-indexing": ["https://www.youtube.com/watch?v=gyl4Yj3-lMU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=10"],
+      "robots": ["https://www.youtube.com/watch?v=48H8BDwmvUk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=11"],
+      "about": ["https://www.youtube.com/watch?v=TF1WGpebbio&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=12"],
+      "push-notification": ["https://www.youtube.com/watch?v=3W78kk1CnRU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=13"],
+      "add-Category": ["https://www.youtube.com/watch?v=2HHEKJpSB-0&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=14"],
+      "all-Category": ["https://www.youtube.com/watch?v=2HHEKJpSB-0&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=14"],
+      "add-Sub-Category": ["https://www.youtube.com/watch?v=lb8tQZw28pk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=15"],
+      "all-Sub-Category": ["https://www.youtube.com/watch?v=lb8tQZw28pk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=15"],
+      "news-article": ["https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17"],
+      "all-news-article": ["https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17"]
     };
 
-    window.onload = function () {
+   window.onload = function () {
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
-      const videoUrl = videoMap[id] || videoMap["default"];
+      const videos = videoMap[id] || videoMap["default"];
 
-      // Use replace to redirect immediately
-      window.location.replace(videoUrl);
-      
+      if (videos.length === 1) {
+        window.location.replace(videos[0]);
+      } else {
+        const container = document.getElementById("videoOptions");
+        document.getElementById("message").innerText = "Select a video to watch:";
+        videos.forEach((url, index) => {
+          const btn = document.createElement("button");
+          btn.textContent = "Video " + (index + 1);
+          btn.style.margin = "10px";
+          btn.onclick = () => window.location.href = url;
+          container.appendChild(btn);
+        });
+      }
     };
   </script>
 </head>
 <body>
   <p>Redirecting to video...</p>
+  <div id="videoOptions"></div><div id="videoOptions"></div>
 </body>
 </html>
