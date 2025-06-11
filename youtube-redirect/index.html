@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redirecting...</title>
+  <script>
+    const videoMap = {
+      "default": "https://www.youtube.com/playlist?list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l",
+      "folder": "https://www.youtube.com/watch?v=zC0dwYfPfzk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=2",
+    };
+
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      const videoUrl = videoMap[id] || videoMap["default"];
+
+      // Use replace to redirect immediately
+      window.location.replace(videoUrl);
+    };
+  </script>
+</head>
+<body>
+  <p>Redirecting to video...</p>
+</body>
+</html>
