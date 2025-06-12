@@ -3,147 +3,416 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video Redirector</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <title>VideoHub - Premium Video Redirector</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <style>
     :root {
-      --primary-color: #4361ee;
-      --secondary-color: #3f37c9;
-      --accent-color: #4895ef;
-      --light-color: #f8f9fa;
-      --dark-color: #212529;
-      --success-color: #4cc9f0;
-      --border-radius: 12px;
-      --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      --primary: #4361ee;
+      --primary-dark: #3a0ca3;
+      --secondary: #4cc9f0;
+      --secondary-dark: #4895ef;
+      --accent: #f72585;
     }
     
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      min-height: 100vh;
+      background: radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.1) 0%, rgba(58, 12, 163, 0.1) 90%);
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 6px rgba(67, 97, 238, 0.1);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 6px rgba(76, 201, 240, 0.1);
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(76, 201, 240, 0.2);
+      background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary) 100%);
+    }
+    
+    .btn-accent {
+      background: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 6px rgba(247, 37, 133, 0.1);
+    }
+    
+    .btn-accent:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(247, 37, 133, 0.2);
+      background: linear-gradient(135deg, #b5179e 0%, #f72585 100%);
+    }
+    
+    /* Enhanced circular countdown */
+    .countdown-circle {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 30px;
+    }
+    
+    .countdown-number {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      color: var(--dark-color);
-      line-height: 1.6;
-    }
-    
-    .container {
-      background-color: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      padding: 40px;
-      width: 100%;
-      max-width: 600px;
-      text-align: center;
-      transition: var(--transition);
-    }
-    
-    h1 {
-      color: var(--primary-color);
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-    
-    .message {
-      font-size: 18px;
-      margin-bottom: 30px;
-      color: var(--dark-color);
-    }
-    
-    .video-options {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    
-    .video-btn {
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      transition: var(--transition);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      min-width: 120px;
-    }
-    
-    .video-btn:hover {
-      background-color: var(--secondary-color);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-    
-    .video-btn:active {
-      transform: translateY(0);
-    }
-    
-    .loader {
-      display: inline-block;
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(67, 97, 238, 0.2);
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 50%;
-      border-top-color: var(--primary-color);
-      animation: spin 1s ease-in-out infinite;
-      margin: 20px 0;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
     }
     
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .countdown-svg {
+      transform: rotate(-90deg);
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
     }
     
-    .logo {
-      margin-bottom: 30px;
-      font-size: 24px;
+    .countdown-circle-bg {
+      fill: none;
+      stroke: #f0f0f0;
+      stroke-width: 8;
+    }
+    
+    .countdown-circle-fg {
+      fill: none;
+      stroke: url(#countdown-gradient);
+      stroke-width: 8;
+      stroke-linecap: round;
+      animation: countdown 8s linear forwards;
+      stroke-dasharray: 314;
+      stroke-dashoffset: 314;
+    }
+    
+    @keyframes countdown {
+      from {
+        stroke-dashoffset: 314;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    
+    /* Video card hover effect */
+    .video-card {
+      transition: all 0.3s ease;
+      transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .video-card:hover {
+      transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Pulse animation for attention */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(var(--primary), var(--primary-dark));
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Video dropdown styles */
+    .video-dropdown {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    
+    .video-dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 200px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+      z-index: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 5px;
+    }
+    
+    .video-dropdown:hover .video-dropdown-content {
+      display: block;
+    }
+    
+    .video-dropdown-item {
+      color: #4b5563;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: all 0.2s;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    
+    .video-dropdown-item:hover {
+      background-color: #f9fafb;
+      color: #3b82f6;
+      padding-left: 20px;
+    }
+
+    /* Badge styles */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
       font-weight: 600;
-      color: var(--primary-color);
+      background-color: #e0e7ff;
+      color: #4f46e5;
+      margin-left: 8px;
     }
-    
-    .logo span {
-      color: var(--accent-color);
+
+    /* Multi-video card styles */
+    .multi-video-card {
+      position: relative;
+      overflow: hidden;
     }
-    
-    @media (max-width: 600px) {
-      .container {
-        padding: 30px 20px;
+
+    .multi-video-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 25px;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      animation: modalFadeIn 0.3s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
       }
-      
-      h1 {
-        font-size: 24px;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-      
-      .message {
-        font-size: 16px;
-      }
-      
-      .video-btn {
-        padding: 10px 20px;
-        font-size: 14px;
-      }
+    }
+
+    .close-modal {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close-modal:hover {
+      color: #555;
+    }
+
+    .video-option-btn {
+      transition: all 0.2s;
+    }
+
+    .video-option-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Selection section styles */
+    .selection-section {
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .selected-video-name {
+      font-weight: 600;
+      color: var(--primary);
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <div class="logo">Video<span>Redirector</span></div>
-    <h1 id="message">Redirecting to video...</h1>
-    <div class="loader" id="loader"></div>
-    <div class="video-options" id="videoOptions"></div>
+<body class="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+  <div class="glass-card w-full max-w-4xl overflow-hidden">
+    <div class="p-8 md:p-10 text-center">
+      <!-- Logo with floating animation -->
+      <div class="flex justify-center mb-8 floating">
+        <div class="text-4xl font-bold gradient-text">
+          Video<span class="text-blue-400">Hub</span>
+          <span class="text-xs block font-normal text-gray-500 mt-1">PREMIUM CONTENT DELIVERY</span>
+        </div>
+      </div>
+      
+      <!-- Timer Section -->
+      <div id="timer-section" class="hidden animate__animated animate__fadeIn">
+        <h1 class="text-3xl font-semibold text-gray-800 mb-4">You're Being Redirected</h1>
+        <p class="text-gray-600 mb-8">We'll take you to <span id="selected-video-name" class="selected-video-name"></span> in:</p>
+        
+        <!-- Enhanced Circular Countdown with Gradient -->
+        <div class="countdown-circle pulse">
+          <div class="countdown-number" id="countdown">8</div>
+          <svg class="countdown-svg" width="120" height="120" viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="countdown-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4361ee" />
+                <stop offset="100%" stop-color="#f72585" />
+              </linearGradient>
+            </defs>
+            <circle class="countdown-circle-bg" cx="60" cy="60" r="50"></circle>
+            <circle class="countdown-circle-fg" cx="60" cy="60" r="50"></circle>
+          </svg>
+        </div>
+        
+        <div class="flex justify-center space-x-4 mt-8">
+          <button id="redirect-now" class="btn-primary text-white font-medium py-3 px-8 rounded-xl shadow-lg flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+            </svg>
+            Watch Now
+          </button>
+          <button id="cancel-redirect" class="btn-secondary text-white font-medium py-3 px-8 rounded-xl shadow-lg flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+            </svg>
+            Stay Here
+          </button>
+        </div>
+      </div>
+      
+      <!-- Selection Section -->
+      <div id="selection-section" class="selection-section">
+        <h1 class="text-3xl font-semibold text-gray-800 mb-4">Select Video Part</h1>
+        <p class="text-gray-600 mb-8">Choose which part you'd like to watch:</p>
+        
+        <div class="grid grid-cols-1 gap-4 max-w-md mx-auto" id="selection-options">
+          <!-- Options will be inserted here -->
+        </div>
+        
+        <button id="back-to-main" class="mt-8 text-blue-600 hover:text-blue-800 font-medium flex items-center justify-center mx-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+          </svg>
+          Back to all videos
+        </button>
+      </div>
+      
+      <!-- Main Content Section -->
+      <div id="no-id-message" class="mb-8 animate__animated animate__fadeIn">
+        <h1 class="text-3xl font-semibold text-gray-800 mb-4">Welcome to VideoHub</h1>
+        <p class="text-gray-600 max-w-lg mx-auto">Select from our premium video collection below to access expert tutorials and resources.</p>
+      </div>
+      
+      <!-- Video Options Section - Always Visible -->
+      <div id="video-options" class="animate__animated animate__fadeInUp mt-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-8 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          Choose a Video:
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="video-buttons-container">
+          <!-- Video buttons will be inserted here -->
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <div class="mt-12 pt-6 border-t border-gray-100">
+        <p class="text-sm text-gray-500">© 2023 VideoHub Premium. All rights reserved.</p>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -165,47 +434,377 @@
       "add-Sub-Category": ["https://www.youtube.com/watch?v=lb8tQZw28pk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=15"],
       "all-Sub-Category": ["https://www.youtube.com/watch?v=lb8tQZw28pk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=15"],
       "news-article": [
-        "https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17",
-        "https://www.youtube.com/watch?v=sIBjpr0UchI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=18"
+        {name: "News Article Part 1", url: "https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17"},
+        {name: "News Articles Part 2", url: "https://www.youtube.com/watch?v=sIBjpr0UchI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=18"}
       ],
       "all-news-article": [
-        "https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17",
-        "https://www.youtube.com/watch?v=sIBjpr0UchI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=18"
+        {name: "News Article Part 2", url: "https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17"},
+        {name: "News Articles Part 2", url: "https://www.youtube.com/watch?v=sIBjpr0UchI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=18"}
       ],
-      "MOVIE": ["https://www.youtube.com/watch?v=aEIkbo0K1rc&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=26"]
+      "blog-posting" : ["https://www.youtube.com/watch?v=q6uw5O6sl5A&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=19"],
+      "all-blog-posting" : ["https://www.youtube.com/watch?v=q6uw5O6sl5A&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=19"],
+      "press-release": ["https://www.youtube.com/watch?v=Sho75mis1rs&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=20"],
+      "all-press-release": ["https://www.youtube.com/watch?v=Sho75mis1rs&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=20"],
+      "event": ["https://www.youtube.com/watch?v=g8znhu58wBU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=21"],
+      "all-event": ["https://www.youtube.com/watch?v=g8znhu58wBU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=21"],
+      "product": ["https://www.youtube.com/watch?v=Y1jpEaxHGfY&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=22"],
+      "all-product": ["https://www.youtube.com/watch?v=Y1jpEaxHGfY&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=22"],
+      "job-posting": ["https://www.youtube.com/watch?v=Fq8mGDmFVOo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=23"],
+      "all-job-posting": ["https://www.youtube.com/watch?v=Fq8mGDmFVOo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=23"],
+      "faq-page": ["https://www.youtube.com/watch?v=auFBGVjf1o4&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=24"],
+      "all-faq-page": ["https://www.youtube.com/watch?v=auFBGVjf1o4&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=24"],
+      "local-business": ["https://www.youtube.com/watch?v=BWsKNx6nyPg&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=25"],
+      "all-local-business": ["https://www.youtube.com/watch?v=BWsKNx6nyPg&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=25"],
+      "listicles": [""],
+       "discover-MOVIE": ["https://www.youtube.com/watch?v=aEIkbo0K1rc&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=26"],
+      "discover-COURSE": ["https://www.youtube.com/watch?v=zE0swW35rhU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=27"],
+      "discover-RESTAURANT": ["https://www.youtube.com/watch?v=Q-DnRi9j2A4&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=28"],
+      "discover-RECIPE": ["https://www.youtube.com/watch?v=aJOm72LtTO4&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=29"],
+      "discover-BOOK": ["https://www.youtube.com/watch?v=-E-297cvHEY&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=30"],
+      "discover-PRODUCT": ["https://www.youtube.com/watch?v=Jp4SL__DHHw&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=31"],
+      "discover-PLACE": ["https://www.youtube.com/watch?v=wEDOEDqxgQk&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=32"],
+      "discover-LANDMARK": ["https://www.youtube.com/watch?v=jLa-8Akalto&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=33"],
+      "discover-SOFTWARE": ["https://www.youtube.com/watch?v=5Q9Ih_abzlQ&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=34"],
+      "discover-WEBSITE": ["https://www.youtube.com/watch?v=42HVr10Tbtg&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=35"],
+      "discover-OCCUPATION": ["https://www.youtube.com/watch?v=Mm3myvlziKw&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=36"],
+      "discover-EVENT": ["https://www.youtube.com/watch?v=TmmAJPIQXLs&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=37"],
+      "discover-HOWTO": ["https://www.youtube.com/watch?v=iDm1MVXpZ5U&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=38"],
+      "discover-FINANCIAL": ["https://www.youtube.com/watch?v=FRJRObSNIF0&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=39"],
+      "discover-QUOTE": ["https://www.youtube.com/watch?v=XhAV5UkOdto&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=40"],
+      "discover-EDUCATIONAL_PROGRAM": ["https://www.youtube.com/watch?v=Hdow1WJcD7U&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=41"],
+      "discover-MEDICAL": ["https://www.youtube.com/watch?v=nPTUmVnBYXs&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=42"],
+      "discover-DEFINED_TERM": ["https://www.youtube.com/watch?v=0WOv9SI7wCU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=43"],
+      "discover-BROADCAST": ["https://www.youtube.com/watch?v=NsjyeMoLx7s&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=44"],
+      "discover-TV_SERIES": ["https://www.youtube.com/watch?v=5HvpT1LWPck&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=45"],
+      "discover-PODCAST": ["https://www.youtube.com/watch?v=QX-pReyga0s&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=46"],
+      "discover-ORGANIZATION": ["https://www.youtube.com/watch?v=ZWNPWmJS7fs&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=47"],
+      "discover-NEWS_ARTICLE": ["https://www.youtube.com/watch?v=NclM6iCtdx4&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=48"],
+      "discover-PARENT_AUDIENCE": ["https://www.youtube.com/watch?v=mhMJShxcSE4&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=49"],
+      "discover-EducationalOccupationalCredential": ["https://www.youtube.com/watch?v=4eiC3sIgo5k&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=50"],
+      "discover-OFFER": ["https://www.youtube.com/watch?v=xJpj3R1fIi0&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=51"],
+      "discover-IMAGE_OBJECT": ["https://www.youtube.com/watch?v=uR37oScw2fE&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=52"],
+      "discover-VEHICLE": ["https://www.youtube.com/watch?v=dSJe0s6C1tg&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=53"],
+      "discover-HOTEL": ["https://www.youtube.com/watch?v=1dCHZfpJzu8&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=54"],
+      "discover-ARTICLE": ["https://www.youtube.com/watch?v=7QpBYXK769I&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=55"],
+      "discover-PERSON": ["https://www.youtube.com/watch?v=w9w7I6EEz0E&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=56"],
+      "carousel": ["https://www.youtube.com/watch?v=zjIP68_wVBI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=57"],
+      "new-ads":["https://www.youtube.com/watch?v=BGuhz6t0B80&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=58"],
+      "user-ads":["https://www.youtube.com/watch?v=oHG7Fb6cV28&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=59"],
+      "facebook":["https://www.youtube.com/watch?v=aGi4FuFknI8&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=60"],
+      "instagram":["https://www.youtube.com/watch?v=aGi4FuFknI8&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=60"],
+      "x-twitter":["https://www.youtube.com/watch?v=aGi4FuFknI8&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=60"],
+      "youtube":["https://www.youtube.com/watch?v=aGi4FuFknI8&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=60"],
+      "dialog":["https://www.youtube.com/watch?v=sxp7tBpUjYI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=61"],
+      "notification":["https://www.youtube.com/watch?v=y-u3GyObtoI&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=62"],
+      "all-user":["https://www.youtube.com/watch?v=X9tUyd3gWtc&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=63"],
+      "all-admin-user":["https://www.youtube.com/watch?v=X9tUyd3gWtc&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=63"],
+      "add-script":[
+        {name: "Google Adsense Part 1", url: "https://www.youtube.com/watch?v=x5PQpaa6ipo&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=17"},
+        {name: "Google Ads code & Analytics Part 2", url: "https://www.youtube.com/watch?v=M88wZb1PEqU&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=65"}
+      ],
+      "add-story":["https://www.youtube.com/watch?v=aFEKffIUZMg&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=66"],
+      "all-story":["https://www.youtube.com/watch?v=aFEKffIUZMg&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=66"]
+
+
+
+      
     };
 
-    window.onload = function () {
+    // Enhanced video options with icons and categories
+    const customVideoOptions = [
+      { 
+        name: "Full playlist", 
+        url: "https://www.youtube.com/playlist?list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l",
+        icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+        category: "Getting Started"
+      },
+      { 
+        name: "Template", 
+        url: "https://www.youtube.com/watch?v=Sn7ao4Hxf1Y&list=PLZQjCBijuqkJRG5DoysulVjkTW9yjB94l&index=16",
+        icon: "M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z",
+        category: "Embedd social media, mp3, pdf, and more"
+      },
+      
+    ];
+
+    let countdown = 8;
+    let redirectTimer;
+    let selectedVideoUrl = null;
+    let selectedVideoName = "";
+
+    function initializePage() {
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
-      const videos = videoMap[id] || videoMap["default"];
-
-      if (videos.length === 1) {
-        // Small delay to show the loader
-        setTimeout(() => {
-          window.location.replace(videos[0]);
-        }, 1000);
+      
+      if (id && videoMap[id]) {
+        // Check if this is a multi-video option
+        if (Array.isArray(videoMap[id]) && videoMap[id][0] && typeof videoMap[id][0] === 'object') {
+          // Show selection interface for multi-video options
+          showSelectionInterface(id, videoMap[id]);
+        } else {
+          // Single video - start countdown immediately
+          selectedVideoUrl = Array.isArray(videoMap[id]) ? videoMap[id][0] : videoMap[id];
+          selectedVideoName = id.replace(/-/g, ' ');
+          startCountdown();
+        }
       } else {
-        const container = document.getElementById("videoOptions");
-        const msg = document.getElementById("message");
-        const loader = document.getElementById("loader");
+        // No ID or invalid ID - show welcome message
+        document.getElementById('timer-section').classList.add('hidden');
+        document.getElementById('no-id-message').classList.remove('hidden');
+      }
+      
+      // Display appropriate video list based on whether ID is present
+      if (id) {
+        displayCustomVideoOptions();
+      } else {
+        displayAllVideoMapOptions();
+      }
+
+      // Setup back button handler
+      document.getElementById('back-to-main').addEventListener('click', () => {
+        document.getElementById('selection-section').style.display = 'none';
+        document.getElementById('video-options').style.display = 'block';
+        document.getElementById('no-id-message').style.display = 'block';
+      });
+    }
+
+    function displayAllVideoMapOptions() {
+      const container = document.getElementById('video-buttons-container');
+      container.innerHTML = '';
+      
+      // Convert videoMap to an array of options
+      const allVideoOptions = Object.entries(videoMap).map(([id, urls]) => {
+        const isMultiVideo = Array.isArray(urls) && urls[0] && typeof urls[0] === 'object';
+        const name = id.replace(/-/g, ' ');
         
-        loader.style.display = "none";
-        msg.innerText = "Select a video to watch:";
+        return {
+          id,
+          name,
+          url: isMultiVideo ? id : (Array.isArray(urls) ? urls[0] : urls),
+          icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z",
+          isMultiVideo
+        };
+      });
+      
+      // Group by first part of ID (before first hyphen if exists)
+      const categories = {};
+      allVideoOptions.forEach(option => {
+        const category = option.id.split('-')[0];
+        if (!categories[category]) {
+          categories[category] = [];
+        }
+        categories[category].push(option);
+      });
+      
+      // Create cards for each video option
+      for (const [category, videos] of Object.entries(categories)) {
+        // Add category heading
+        const categoryHeading = document.createElement('h3');
+        categoryHeading.className = 'col-span-full text-lg font-medium text-gray-700 mt-6 mb-2 flex items-center';
+        categoryHeading.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          ${category.charAt(0).toUpperCase() + category.slice(1)}
+        `;
+        container.appendChild(categoryHeading);
         
-        videos.forEach((url, index) => {
-          const btn = document.createElement("button");
-          btn.className = "video-btn";
-          btn.textContent = "Part " + (index + 1);
-          btn.onclick = () => {
-            btn.innerHTML = '<span class="loader-btn"></span> Loading...';
-            btn.style.pointerEvents = "none";
-            window.location.href = url;
-          };
-          container.appendChild(btn);
+        videos.forEach(option => {
+          const card = document.createElement('div');
+          
+          if (option.isMultiVideo) {
+            card.className = 'multi-video-card video-card bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100';
+            card.innerHTML = `
+              <button class="w-full h-full text-left group">
+                <div class="flex items-center mb-3">
+                  <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:bg-blue-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${option.icon}" />
+                    </svg>
+                  </div>
+                  <h3 class="font-medium text-gray-800 group-hover:text-blue-600 transition-colors">${option.name}</h3>
+                </div>
+                <p class="text-sm text-gray-500 text-left ml-11">Multiple parts available</p>
+                <span class="multi-video-badge">${videoMap[option.id].length} parts</span>
+              </button>
+            `;
+            card.addEventListener('click', () => {
+              showSelectionInterface(option.id, videoMap[option.id]);
+            });
+          } else {
+            card.className = 'video-card bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100';
+            card.innerHTML = `
+              <button class="w-full h-full text-left group">
+                <div class="flex items-center mb-3">
+                  <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:bg-blue-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${option.icon}" />
+                    </svg>
+                  </div>
+                  <h3 class="font-medium text-gray-800 group-hover:text-blue-600 transition-colors">${option.name}</h3>
+                </div>
+                <p class="text-sm text-gray-500 text-left ml-11">Click to watch tutorial</p>
+              </button>
+            `;
+            card.addEventListener('click', () => {
+              selectedVideoUrl = option.url;
+              selectedVideoName = option.name;
+              startCountdown();
+            });
+          }
+          
+          container.appendChild(card);
         });
       }
-    };
+    }
+
+    function displayCustomVideoOptions() {
+      const container = document.getElementById('video-buttons-container');
+      
+      // Clear any existing buttons
+      container.innerHTML = '';
+      
+      // Group by category
+      const categories = {};
+      customVideoOptions.forEach(option => {
+        if (!categories[option.category]) {
+          categories[option.category] = [];
+        }
+        categories[option.category].push(option);
+      });
+      
+      // Create cards for each video option
+      for (const [category, videos] of Object.entries(categories)) {
+        // Add category heading if more than one category
+        if (Object.keys(categories).length > 1) {
+          const categoryHeading = document.createElement('h3');
+          categoryHeading.className = 'col-span-full text-lg font-medium text-gray-700 mt-6 mb-2 flex items-center';
+          categoryHeading.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            ${category}
+          `;
+          container.appendChild(categoryHeading);
+        }
+        
+        videos.forEach(option => {
+          const card = document.createElement('div');
+          
+          if (option.isMultiVideo) {
+            card.className = 'multi-video-card video-card bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100';
+            card.innerHTML = `
+              <button class="w-full h-full text-left group">
+                <div class="flex items-center mb-3">
+                  <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:bg-blue-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${option.icon}" />
+                    </svg>
+                  </div>
+                  <h3 class="font-medium text-gray-800 group-hover:text-blue-600 transition-colors">${option.name}</h3>
+                </div>
+                <p class="text-sm text-gray-500 text-left ml-11">Multiple parts available</p>
+                <span class="multi-video-badge">${videoMap[option.url].length} parts</span>
+              </button>
+            `;
+            card.addEventListener('click', () => {
+              showSelectionInterface(option.url, videoMap[option.url]);
+            });
+          } else {
+            card.className = 'video-card bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100';
+            card.innerHTML = `
+              <button class="w-full h-full text-left group">
+                <div class="flex items-center mb-3">
+                  <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:bg-blue-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${option.icon}" />
+                    </svg>
+                  </div>
+                  <h3 class="font-medium text-gray-800 group-hover:text-blue-600 transition-colors">${option.name}</h3>
+                </div>
+                <p class="text-sm text-gray-500 text-left ml-11">Click to watch tutorial</p>
+              </button>
+            `;
+            card.addEventListener('click', () => {
+              selectedVideoUrl = option.url;
+              selectedVideoName = option.name;
+              startCountdown();
+            });
+          }
+          
+          container.appendChild(card);
+        });
+      }
+    }
+
+    function startCountdown() {
+      document.getElementById('timer-section').classList.remove('hidden');
+      document.getElementById('no-id-message').classList.add('hidden');
+      document.getElementById('video-options').style.display = 'none';
+      document.getElementById('selection-section').style.display = 'none';
+      
+      document.getElementById('selected-video-name').textContent = selectedVideoName;
+
+      const countdownElement = document.getElementById('countdown');
+      const redirectNowBtn = document.getElementById('redirect-now');
+      const cancelRedirectBtn = document.getElementById('cancel-redirect');
+      
+      countdown = 8;
+      countdownElement.textContent = countdown;
+      
+      redirectTimer = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        
+        if (countdown <= 0) {
+          clearInterval(redirectTimer);
+          window.location.href = selectedVideoUrl;
+        }
+      }, 1000);
+      
+      redirectNowBtn.addEventListener('click', () => {
+        clearInterval(redirectTimer);
+        redirectNowBtn.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Redirecting...';
+        redirectNowBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        window.location.href = selectedVideoUrl;
+      });
+      
+      cancelRedirectBtn.addEventListener('click', () => {
+        clearInterval(redirectTimer);
+        document.getElementById('timer-section').classList.add('hidden');
+        document.getElementById('no-id-message').classList.remove('hidden');
+        document.getElementById('video-options').style.display = 'block';
+      });
+    }
+
+    function showSelectionInterface(id, videos) {
+      document.getElementById('no-id-message').style.display = 'none';
+      document.getElementById('video-options').style.display = 'none';
+      document.getElementById('selection-section').style.display = 'block';
+      
+      const container = document.getElementById('selection-options');
+      container.innerHTML = '';
+      
+      videos.forEach((video, index) => {
+        const option = document.createElement('button');
+        option.className = 'video-option-btn bg-white hover:bg-blue-50 text-left p-4 rounded-xl border border-gray-200 flex items-center';
+        option.innerHTML = `
+          <span class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mr-3 font-medium">${index + 1}</span>
+          <span class="font-medium text-gray-800">${video.name}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+          </svg>
+        `;
+        option.onclick = () => {
+          selectedVideoUrl = video.url;
+          selectedVideoName = video.name;
+          startCountdown();
+        };
+        container.appendChild(option);
+      });
+    }
+
+    window.onload = initializePage;
   </script>
 </body>
 </html>
